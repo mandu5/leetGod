@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  # Backend Service (Development)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./leetgod.db
+      - SECRET_KEY=dev-secret-key
+      - ENVIRONMENT=development
+      - DEBUG=true
+    volumes:
+      - ./backend:/app
+      - /app/venv
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  # Frontend Service (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    environment:
+      - API_BASE_URL=http://localhost:8000
+      - FLUTTER_WEB_PORT=3001
+    volumes:
+      - ./frontend:/app
+      - /app/.dart_tool
+      - /app/build
+    command: flutter run -d web-server --web-port=3001 --web-hostname=0.0.0.0 --hot
+    restart: unless-stopped
+
+  # Database Service (Development)
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=leetgod_dev
+      - POSTGRES_USER=leetgod_user
+      - POSTGRES_PASSWORD=leetgod_password
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # Redis Service (Development)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    restart: unless-stopped
+
+  # Mailhog (Email testing)
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    restart: unless-stopped
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:
+
+networks:
+  default:
+    name: leet-god-dev-network
