@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from models.database import Base
 from pydantic import BaseModel, EmailStr
@@ -20,6 +21,10 @@ class User(Base):
     diagnostic_completed = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # 관계 설정
+    wrong_answers = relationship("WrongAnswer", back_populates="user")
+    learning_streak = relationship("LearningStreak", back_populates="user", uselist=False)
 
 class UserCreate(BaseModel):
     email: EmailStr

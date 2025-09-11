@@ -5,6 +5,7 @@ import 'package:leet_god/providers/diagnostic_provider.dart';
 import 'package:leet_god/providers/daily_test_provider.dart';
 import 'package:leet_god/providers/analytics_provider.dart';
 import 'package:leet_god/providers/voucher_provider.dart';
+import 'package:leet_god/providers/wrong_answer_provider.dart';
 import 'package:leet_god/screens/splash_screen.dart';
 import 'package:leet_god/utils/theme.dart';
 
@@ -24,6 +25,7 @@ class LeetGodApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DailyTestProvider()),
         ChangeNotifierProvider(create: (_) => AnalyticsProvider()),
         ChangeNotifierProvider(create: (_) => VoucherProvider()),
+        ChangeNotifierProvider(create: (_) => WrongAnswerProvider()),
       ],
       child: MaterialApp(
         title: '리트의신',

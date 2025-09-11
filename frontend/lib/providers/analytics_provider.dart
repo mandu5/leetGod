@@ -7,13 +7,11 @@ class AnalyticsProvider extends ChangeNotifier {
   
   Dashboard? _dashboard;
   Map<String, dynamic>? _weeklyReport;
-  List<Map<String, dynamic>> _wrongNotes = [];
   bool _isLoading = false;
   String? _error;
 
   Dashboard? get dashboard => _dashboard;
   Map<String, dynamic>? get weeklyReport => _weeklyReport;
-  List<Map<String, dynamic>> get wrongNotes => _wrongNotes;
   bool get isLoading => _isLoading;
   String? get error => _error;
 
@@ -50,22 +48,6 @@ class AnalyticsProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> loadWrongNotes() async {
-    _isLoading = true;
-    _error = null;
-    notifyListeners();
-
-    try {
-      _wrongNotes = await _apiService.getWrongNotes();
-      _isLoading = false;
-      notifyListeners();
-    } catch (e) {
-      _isLoading = false;
-      _error = e.toString();
-      notifyListeners();
-    }
-  }
-
   void clearError() {
     _error = null;
     notifyListeners();
@@ -74,7 +56,6 @@ class AnalyticsProvider extends ChangeNotifier {
   void reset() {
     _dashboard = null;
     _weeklyReport = null;
-    _wrongNotes.clear();
     _error = null;
     notifyListeners();
   }

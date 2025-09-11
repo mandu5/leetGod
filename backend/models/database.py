@@ -26,6 +26,9 @@ metadata = MetaData()
 
 def init_db():
     """데이터베이스 초기화"""
+    # 모든 모델을 import하여 테이블이 생성되도록 함
+    from . import user, question, diagnostic, daily_test, voucher, wrong_answer, learning_streak
+    
     # 모든 테이블 생성
     Base.metadata.create_all(bind=engine)
     print("✅ 데이터베이스가 초기화되었습니다.")

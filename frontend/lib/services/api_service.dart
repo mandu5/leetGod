@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:leet_god/models/user.dart';
+import 'package:leet_god/models/wrong_answer.dart';
 import 'package:leet_god/constants/app_constants.dart';
 import 'package:leet_god/utils/result.dart';
 
@@ -236,19 +237,101 @@ class ApiService {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getWrongNotes() async {
+  // 오답 노트 관련 API
+  Future<Map<String, dynamic>> getWrongAnswers(WrongAnswerFilter filter) async {
+    final headers = await _getHeaders();
+    final queryParams = filter.toQueryParams();
+    
+    final uri = Uri.parse('$baseUrl/wrong-notes').replace(
+      queryParameters: queryParams.map((key, value) => MapEntry(key, value.toString())),
+    );
+    
+    final response = await http.get(uri, headers: headers);
+
+    final result = await _handleResponse(response);
+    if (result.isSuccess) {
+      return result.dataOrThrow;
+    } else {
+      throw Exception(result.errorOrNull ?? '오답 노트 조회에 실패했습니다.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getWrongAnswerDetail(int wrongAnswerId) async {
     final headers = await _getHeaders();
     
     final response = await http.get(
-      Uri.parse('$baseUrl/wrong-notes'),
+      Uri.parse('$baseUrl/wrong-notes/$wrongAnswerId'),
       headers: headers,
     );
 
     final result = await _handleResponse(response);
     if (result.isSuccess) {
-      return List<Map<String, dynamic>>.from(result.dataOrThrow);
+      return result.dataOrThrow;
     } else {
-      throw Exception(result.errorOrNull ?? '오답 노트 조회에 실패했습니다.');
+      throw Exception(result.errorOrNull ?? '오답 노트 상세 조회에 실패했습니다.');
+    }
+  }
+
+  Future<Map<String, dynamic>> reviewWrongAnswer(int wrongAnswerId, Map<String, dynamic> reviewData) async {
+    final headers = await _getHeaders();
+    
+    final response = await http.post(
+      Uri.parse('$baseUrl/wrong-notes/$wrongAnswerId/review'),
+      headers: headers,
+      body: jsonEncode(reviewData),
+    );
+
+    final result = await _handleResponse(response);
+    if (result.isSuccess) {
+      return result.dataOrThrow;
+    } else {
+      throw Exception(result.errorOrNull ?? '오답 노트 복습에 실패했습니다.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getWrongAnswerStats() async {
+    final headers = await _getHeaders();
+    
+    final response = await http.get(
+      Uri.parse('$baseUrl/wrong-notes/stats'),
+      headers: headers,
+    );
+
+    final result = await _handleResponse(response);
+    if (result.isSuccess) {
+      return result.dataOrThrow;
+    } else {
+      throw Exception(result.errorOrNull ?? '오답 노트 통계 조회에 실패했습니다.');
+    }
+  }
+
+  Future<Map<String, dynamic>> getReviewRecommendations({int limit = 10}) async {
+    final headers = await _getHeaders();
+    
+    final response = await http.get(
+      Uri.parse('$baseUrl/wrong-notes/recommendations?limit=$limit'),
+      headers: headers,
+    );
+
+    final result = await _handleResponse(response);
+    if (result.isSuccess) {
+      return result.dataOrThrow;
+    } else {
+      throw Exception(result.errorOrNull ?? '복습 추천 조회에 실패했습니다.');
+    }
+  }
+
+  Future<void> deleteWrongAnswer(int wrongAnswerId) async {
+    final headers = await _getHeaders();
+    
+    final response = await http.delete(
+      Uri.parse('$baseUrl/wrong-notes/$wrongAnswerId'),
+      headers: headers,
+    );
+
+    final result = await _handleResponse(response);
+    if (!result.isSuccess) {
+      throw Exception(result.errorOrNull ?? '오답 노트 삭제에 실패했습니다.');
     }
   }
 

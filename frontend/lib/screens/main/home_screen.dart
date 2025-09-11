@@ -8,11 +8,13 @@ import 'package:leet_god/screens/diagnostic/diagnostic_screen.dart';
 import 'package:leet_god/screens/daily_test/daily_test_screen.dart';
 import 'package:leet_god/screens/analytics/dashboard_screen.dart';
 import 'package:leet_god/screens/profile/profile_screen.dart';
+import 'package:leet_god/screens/wrong_answer/wrong_answer_screen.dart';
 import 'package:leet_god/utils/theme.dart';
 import 'package:leet_god/constants/app_constants.dart';
 import 'package:leet_god/widgets/common/action_card.dart';
 import 'package:leet_god/widgets/common/activity_item.dart';
 import 'package:leet_god/widgets/common/conditional_widget.dart';
+import 'package:leet_god/widgets/learning_streak_widget.dart';
 import 'package:leet_god/utils/navigation.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -97,6 +99,16 @@ class _HomeTab extends StatelessWidget {
                 final user = authProvider.user;
                 return _WelcomeCard(user: user);
               },
+            ),
+            
+            const SizedBox(height: AppTheme.spacingXXL),
+            
+            // 학습 스트릭 위젯
+            const LearningStreakWidget(
+              currentStreak: 5,
+              longestStreak: 12,
+              isActiveToday: true,
+              recentAchievements: ['첫걸음 🔥', '일주일 챌린지 ⭐'],
             ),
             
             const SizedBox(height: AppTheme.spacingXXL),
@@ -369,8 +381,12 @@ class _QuickActionsSection extends StatelessWidget {
 
   /// 오답 노트로 네비게이션합니다
   void _navigateToWrongNotes(BuildContext context) {
-    // TODO: 오답 노트 화면 구현 후 연결
-    NavigationUtils.showSnackBar(context, '오답 노트 기능은 준비 중입니다');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const WrongAnswerScreen(),
+      ),
+    );
   }
 
   /// 점수 향상 화면으로 네비게이션합니다

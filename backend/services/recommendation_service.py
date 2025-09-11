@@ -170,11 +170,33 @@ class RecommendationService:
     
     def _update_wrong_notes(self, user_id: int, wrong_questions: List[Dict[str, Any]]):
         """오답 노트 업데이트"""
-        # 실제로는 별도 테이블에 저장해야 하지만,
-        # 여기서는 간단히 로그만 출력
-        print(f"사용자 {user_id}의 오답 노트 업데이트: {len(wrong_questions)}개 문제")
+        from services.wrong_answer_service import WrongAnswerService
+        from models.wrong_answer import WrongAnswerCreate
+        
+        wrong_answer_service = WrongAnswerService()
+        
+        # 틀린 문제들을 오답 노트에 추가
+        wrong_answer_items = []
         for question in wrong_questions:
-            print(f"- 문제 {question['id']}: {question['unit']}")
+            wrong_answer_data = WrongAnswerCreate(
+                question_id=question['id'],
+                question_content=question.get('content', ''),
+                user_answer=question.get('user_answer', ''),
+                correct_answer=question.get('correct_answer', ''),
+                explanation=question.get('explanation', ''),
+                unit=question.get('unit', ''),
+                subject=question.get('subject', ''),
+                topic=question.get('topic', ''),
+                difficulty=question.get('difficulty', 3.0),
+                points=question.get('points', 3),
+                source_type='daily_test'
+            )
+            wrong_answer_items.append(wrong_answer_data)
+        
+        # 일괄 추가
+        if wrong_answer_items:
+            wrong_answer_service.bulk_add_wrong_answers(user_id, wrong_answer_items)
+            print(f"사용자 {user_id}의 오답 노트에 {len(wrong_answer_items)}개 문제 추가")
     
     def _calculate_estimated_time(self, questions: List[Dict[str, Any]]) -> int:
         """예상 풀이 시간 계산 (분 단위)"""

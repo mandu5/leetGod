@@ -9,7 +9,7 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688?style=for-the-badge&logo=fastapi)
 
 **AI-Powered LEET Exam Learning Platform**  
-*Personalized learning experience to reach LEET passing standards*
+_Personalized learning experience to reach LEET passing standards_
 
 [🚀 View Demo](#-demo) • [📖 Documentation](#-documentation) • [🤝 Contributing](#-contributing) • [📄 License](#-license)
 
@@ -39,10 +39,12 @@
 **Leet God** is an AI-powered LEET exam learning platform that provides personalized learning experiences to help LEET test-takers reach actual passing standards through comprehensive practice tests.
 
 ### 🎯 Target Market
+
 - **Primary Target**: College students and job seekers preparing for LEET exams
 - **Extended Target**: Law school applicants, judicial exam candidates
 
 ### 💡 Problem Solving
+
 - **Existing Issues**: Difficulty in accurately identifying individual weaknesses with standardized textbooks and lectures
 - **Solution**: AI-based precise diagnosis and hyper-personalized custom problem delivery
 
@@ -51,49 +53,67 @@
 ## ✨ Key Features
 
 ### 🧠 AI Diagnostic Assessment
+
 - **30-Question Comprehensive Diagnosis**: Analysis by language comprehension, logical reasoning, and legal studies areas
 - **Individual Weakness Analysis**: AI accurately identifies learner's weak points
 - **Customized Learning Plan**: Personalized learning roadmap based on diagnostic results
 
 ### 📚 Daily Mock Exams
+
 - **AI-Recommended Customized Problems**: 10-15 questions optimized for individual skill level
 - **Instant Grading & Explanations**: Real-time feedback for maximum learning effectiveness
 - **Automatic Wrong Answer Notes**: Automatic classification and management of incorrect answers
 
 ### 📊 Learning Dashboard
+
 - **Real-time Score Trends**: Visual confirmation of learning progress
 - **Strength/Improvement Area Analysis**: Data-driven learning strategy development
 - **Weekly Learning Reports**: Detailed learning analysis from AI tutor
 
 ### 🎯 Smart Wrong Answer Notes
-- **Automatic Problem Classification**: Automatic categorization of wrong answers by type
-- **Similar Problem Recommendations**: Customized problem recommendations for weakness improvement
-- **Review Notification System**: Optimal review timing notifications based on forgetting curve
+
+- **Automatic Problem Collection**: Automatically collect wrong answers from diagnostic tests and daily mock exams
+- **Detailed Problem Analysis**: View problem content, user answers, correct answers, and explanations
+- **Review System**: Re-solve wrong problems and track mastery status
+- **Smart Filtering**: Filter by subject, unit, difficulty, and mastery status
+- **Review Recommendations**: Recommend problems that need review based on forgetting curve
+- **Statistics Dashboard**: Visualize wrong answer distribution, mastery rate, and review records
+
+### 🔥 Learning Streak System
+
+- **Daily Learning Tracking**: Record daily learning activities and calculate consecutive days
+- **Achievement Badge System**: Earn achievements for milestones like 3, 7, 14, 30 days
+- **Daily Activity Recording**: Track detailed activities including study time, problems solved, accuracy rate
+- **Learning Statistics**: Analyze and visualize weekly/monthly learning patterns
+- **Motivational UI**: Visual motivation with fire icons and beautiful gradients
 
 ---
 
 ## 🛠 Tech Stack
 
 ### 🖥 Backend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **FastAPI** | 0.104+ | High-performance web API framework |
-| **SQLAlchemy** | 2.0+ | ORM and database management |
-| **SQLite** | 3.x | Lightweight database for development |
-| **JWT** | 3.3+ | Security token-based authentication |
-| **scikit-learn** | 1.3+ | AI recommendation algorithms |
-| **pandas** | 2.1+ | Data analysis and processing |
+
+| Technology       | Version | Purpose                              |
+| ---------------- | ------- | ------------------------------------ |
+| **FastAPI**      | 0.104+  | High-performance web API framework   |
+| **SQLAlchemy**   | 2.0+    | ORM and database management          |
+| **SQLite**       | 3.x     | Lightweight database for development |
+| **JWT**          | 3.3+    | Security token-based authentication  |
+| **scikit-learn** | 1.3+    | AI recommendation algorithms         |
+| **pandas**       | 2.1+    | Data analysis and processing         |
 
 ### 📱 Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Flutter** | 3.0+ | Cross-platform app development |
-| **Provider** | 6.1+ | State management |
-| **HTTP/Dio** | 1.1+/5.3+ | API communication |
-| **fl_chart** | 0.65+ | Data visualization |
-| **Lottie** | 2.7+ | High-quality animations |
+
+| Technology   | Version   | Purpose                        |
+| ------------ | --------- | ------------------------------ |
+| **Flutter**  | 3.0+      | Cross-platform app development |
+| **Provider** | 6.1+      | State management               |
+| **HTTP/Dio** | 1.1+/5.3+ | API communication              |
+| **fl_chart** | 0.65+     | Data visualization             |
+| **Lottie**   | 2.7+      | High-quality animations        |
 
 ### 🔧 DevOps & Tools
+
 - **GitHub Actions**: CI/CD pipeline
 - **Docker**: Containerization
 - **Pytest**: Backend testing
@@ -167,6 +187,7 @@ flutter run
 - **API Documentation**: http://localhost:8000/docs
 
 #### 🧪 Test Account
+
 ```
 Email: student1@example.com
 Password: password123
@@ -229,34 +250,40 @@ leetGod/
 ## 🎨 Screenshots
 
 ### 📱 Main Screen
+
 ![Main Screen](docs/screenshots/main-screen.png)
-*Personalized learning dashboard with AI-recommended daily mock exams*
+_Personalized learning dashboard with AI-recommended daily mock exams_
 
 ### 🧠 Diagnostic Assessment
+
 ![Diagnostic Assessment](docs/screenshots/diagnostic-test.png)
-*30-question comprehensive diagnosis for individual weakness analysis*
+_30-question comprehensive diagnosis for individual weakness analysis_
 
 ### 📊 Learning Analytics
+
 ![Learning Analytics](docs/screenshots/analytics-dashboard.png)
-*Real-time score trends and strength/improvement area analysis*
+_Real-time score trends and strength/improvement area analysis_
 
 ---
 
 ## 📊 Performance Metrics
 
 ### ⚡ Performance Optimization
+
 - **App Launch Time**: < 3 seconds
 - **API Response Time**: < 200ms
 - **Memory Usage**: < 100MB
 - **Battery Efficiency**: Optimized background processing
 
 ### 🔒 Security
+
 - **JWT Token-based Authentication**
 - **bcrypt Password Hashing**
 - **CORS Security Settings**
 - **Input Data Validation**
 
 ### 📈 Scalability
+
 - **Microservices Architecture Ready**
 - **Database Index Optimization**
 - **Caching Strategy Implementation**
@@ -330,19 +357,25 @@ flutter test integration_test/
 ## 📈 Roadmap
 
 ### 🎯 Phase 1: MVP (Current)
+
 - [x] User authentication system
 - [x] AI diagnostic assessment
 - [x] Daily mock exams
 - [x] Learning dashboard
-- [x] Wrong answer notes
+- [x] Smart wrong answer notes system
+- [x] Learning streak tracking
+- [x] Achievement badge system
+- [x] Advanced analytics and insights
 
 ### 🚀 Phase 2: Enhancement (Q2 2024)
+
 - [ ] AI deep analysis reports
 - [ ] Smart review system
 - [ ] Social learning features
 - [ ] Mobile app release
 
 ### 🌟 Phase 3: Expansion (Q3 2024)
+
 - [ ] Premium subscription model
 - [ ] Individual learning consulting
 - [ ] Real-time learning sessions
